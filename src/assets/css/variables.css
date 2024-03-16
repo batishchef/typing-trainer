@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,500;1,500&display=swap');
+
+:root {
+    --writing-text-font: "Advent Pro", sans-serif;
+    --ui-step: 1rem;
+    --main-form-margin: calc(var(--ui-step) * 15);
+    --input-form-focused-border-color: rgb(83, 83, 83);
+    --input-form-unfocused-border-color: black;
+    --input-error-color: rgb(246, 255, 0);
+    --text-passed-color: rgb(199, 199, 199);
+    --text-error-color: rgb(247, 63, 63);
+    --max-input-width: calc(var(--ui-step) * 60);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }

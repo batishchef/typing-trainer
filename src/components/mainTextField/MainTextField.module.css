@@ -1,6 +1,4 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
+@import url(../../assets/css/variables.css);
 
 
 .MainTextField {
@@ -13,10 +11,10 @@
 }
 
 .mainForm {
-    margin: 200px 0 200px;
-    padding: 0 50px;
+    margin: var(--main-form-margin) 0;
+    padding: 0 calc(var(--ui-step) * 2);
     align-self: center;
-    width: min(1000px, 100%);
+    width: min(var(--max-input-width), 100%);
 }
 
 .input {
@@ -25,27 +23,26 @@
     font-size: inherit;
     line-height: inherit;
     margin: 0;
-    border: none;
-    outline: 2px black solid;
+    outline: 1px var(--input-form-unfocused-border-color) solid;
+    border: 1px var(--input-form-unfocused-border-color) solid;
     border-radius: 5px;
     padding-bottom: 3px;
 }
 
 .input:focus {
-    margin-bottom: -1px;
-    border: none;
     outline: none;
-    border-bottom: 1px rgb(83, 83, 83) solid;
+    border: 1px white solid;
+    border-bottom: 1px var(--input-form-focused-border-color) solid;
 }
 
 .incorrectInput {
-    background-color: rgb(247, 244, 63);
+    background-color: var(--input-error-color);
 }
 
 .pastText {
-    color:rgb(199, 199, 199);
+    color: var(--text-passed-color);
 }
 
 .errorInText {
-    color: rgb(247, 63, 63);
+    color: var(--text-error-color);
 }
