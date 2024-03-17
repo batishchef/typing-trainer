@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import styles from './MainTextField.module.css'
+import { inputChecker } from '../../functions/inputChecker';
+import { stopWatch } from '../../functions/stopWatch';
 
 const MainTextField = ({refArr}) => {
 
@@ -9,53 +11,33 @@ const MainTextField = ({refArr}) => {
         correctText: '',
         correctLength: 0,
         isCorrect: true,
-        line: 0
+        line: 0,
     })
 
+    const [roundTime, setRoundTime] = useState(0)
+    const startCount = useRef(0)
+    const stopCount = useRef(0)
+
     
-    function handleChangeWritten(e) {
-        const curInput = e.target.value
-        const curLength = e.target.value.length
+    const reference = refArr[written.line]
 
-        if(curInput === refArr[written.line].substring(0, curLength)) {
-            switch (curInput) {
-                case refArr[written.line]: {
-                    setWritten({
-                        text: '',
-                        length: 0,
-                        correctText: '',
-                        correctLength: 0,
-                        isCorrect: true,
-                        line: written.line + 1
-                    })
-                    break
-                }
+    function handleChangeWritten(event) {
+        const currentInput = event.target.value
 
-                default: {
-                    setWritten({
-                        ...written,
-                        text: curInput,
-                        length: curLength,
-                        correctText: curInput,
-                        correctLength: curLength,
-                        isCorrect: true
-                    })
-                }
-            }
-        } else {
-            setWritten({
-                ...written,
-                text: curInput,
-                length: curLength,
-                isCorrect: false
-            })
+        if(currentInput === reference[0]) startCount.current = stopWatch();
+        if(currentInput === reference) {
+            stopCount.current = stopWatch()
+            const timeDifference = Math.round(stopCount.current - startCount.current)
+            setRoundTime(timeDifference)
         }
+
+        setWritten(inputChecker(currentInput, reference, written))
     }
 
     return (
-        <div className={styles.MainTextField}>
-          <form action="" className={styles.mainForm}>
-
+        <main className={styles.MainTextField}>
+            <p className={styles.wordCounter}>{(roundTime !== 0)? roundTime : '-'} сек.</p>
+            <form action="" className={styles.mainForm}>
                 <input 
                 type="text" 
                 className={[styles.input, written.isCorrect ? styles.correctInput : styles.incorrectInput].join(' ')}
@@ -63,21 +45,17 @@ const MainTextField = ({refArr}) => {
                 onChange={handleChangeWritten}
                 autoFocus
                 />
-
-                <p className={written.isCorrect ? styles.noErrorInText : styles.errorInText}>
-
-                    <span className={styles.pastText}>
-                        {written.correctText}
-                    </span>
-
-                    {refArr[written.line].substring(written.correctLength, refArr[written.line].length)}
-                </p>
-
-                <p>{refArr[written.line + 1]}</p>
-                <p>{refArr[written.line + 2]}</p>
-
             </form>
-        </div>
+
+            <p className={written.isCorrect ? styles.copyingText : styles.copyingTextError}>
+                <span className={styles.pastText}>
+                    {written.correctText}
+                </span>
+                {reference.substring(written.correctLength, reference.length)} <br/>
+                {refArr[written.line + 1]} <br/>
+                {refArr[written.line + 2]}
+            </p>
+        </main>
     );
 };
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import MainTextField from '../../components/mainTextField/MainTextField';
 import styles from './Main.module.css'
 import { textPreparator } from '../../functions/textPreparator';

@@ -4,8 +4,7 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  text-align: center;
+  justify-content: center;
   font-family: var(--writing-text-font);
   font-size: calc(var(--ui-step) * 1.2);
 }
