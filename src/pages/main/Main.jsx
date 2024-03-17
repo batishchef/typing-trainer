@@ -9,6 +9,7 @@ const Main = () => {
     const windowWidth = window.innerWidth
     
     const refArr = textPreparator(reference, windowWidth)
+    console.log(refArr)
 
     return (
         <div className={styles.Main}>

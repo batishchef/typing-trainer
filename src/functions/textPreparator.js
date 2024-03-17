@@ -12,13 +12,14 @@ export function textPreparator(initialText, windowWidth) {
     
     for(let [i,j] = [0, 0]; j < initialWords.length;) {
         if(preparedText[i] === undefined) {
-            preparedText[i] = initialWords[j]
+            preparedText[i] = [initialWords[j], j]
             j++
-        } else if(preparedText[i]?.length < charAmount) {
-            preparedText[i] += ' ' + initialWords[j]
+        } else if(preparedText[i][0]?.length < charAmount) {
+            preparedText[i][0] += ' ' + initialWords[j]
             j++
             } else {
-                preparedText[i] += ' '
+                preparedText[i][0] += ' '
+                preparedText[i][1] = j - preparedText[i][1]
                 i++
             }
     }
