@@ -1,18 +1,20 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 import styles from './MainTextField.module.css'
 import { inputChecker } from '../../functions/inputChecker';
 import { stopWatch } from '../../functions/stopWatch';
 
 const MainTextField = ({refArr}) => {
 
-    const [written, setWritten] = useState({
-        text: '',
-        length: 0,
-        correctText: '',
-        correctLength: 0,
-        isCorrect: true,
-        line: 0,
-    })
+    const [written, setWritten] = useState(
+        {
+            text: '',
+            length: 0,
+            correctText: '',
+            correctLength: 0,
+            isCorrect: true,
+            line: 0,
+        }
+    )
 
     const [typingSpeed, setTypingSpeed] = useState({
         charactersPerMin: 0,
@@ -20,6 +22,19 @@ const MainTextField = ({refArr}) => {
     })
     const startCount = useRef(0)
     const stopCount = useRef(0)
+
+    useEffect(() => {
+        setWritten(
+            {
+                text: '',
+                length: 0,
+                correctText: '',
+                correctLength: 0,
+                isCorrect: true,
+                line: 0,
+            }
+        )
+    }, [refArr])
 
     
     const reference = refArr[written.line][0]

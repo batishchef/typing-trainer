@@ -26,8 +26,9 @@ const AddMyText = () => {
         event.preventDefault()
         if(storageAvailable('sessionStorage')) {
             console.log(newText)
-            sessionStorage.setItem(newText.header, newText.text)
-            console.log(sessionStorage.getItem(newText.header))
+            sessionStorage.setItem(newText.header, [newText.text, newText.header])
+            console.log({...sessionStorage})
+            // console.log(sessionStorage.getItem(newText.header))
         } else {
             alert("Your browser doesn't support this function!")
         }
