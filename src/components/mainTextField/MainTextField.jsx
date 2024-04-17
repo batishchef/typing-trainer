@@ -1,93 +1,101 @@
-import React, { useState, useRef, useEffect} from 'react';
-import styles from './MainTextField.module.css'
-import { inputChecker } from '../../functions/inputChecker';
-import { stopWatch } from '../../functions/stopWatch';
+import React, { useRef } from "react";
+import styles from "./MainTextField.module.css";
+import { inputChecker } from "../../functions/inputChecker";
+import { useDispatch, useSelector } from "react-redux";
+import { updateWritten } from "../../redux/slices/writtenSlice";
+import { updatePerMin } from "../../redux/slices/typingSpeedSlice";
 
-const MainTextField = ({refArr}) => {
+const MainTextField = () => {
+  const written = useSelector((state) => state.written.value);
 
-    const [written, setWritten] = useState(
-        {
-            text: '',
-            length: 0,
-            correctText: '',
-            correctLength: 0,
-            isCorrect: true,
-            line: 0,
-        }
-    )
+  const refArr = useSelector((state) => state.text.value.textBody);
 
-    const [typingSpeed, setTypingSpeed] = useState({
-        charactersPerMin: 0,
-        wordsPerMin: 0
-    })
-    const startCount = useRef(0)
-    const stopCount = useRef(0)
+  const typingSpeed = useSelector((state) => state.typingSpeed.value);
 
-    useEffect(() => {
-        setWritten(
-            {
-                text: '',
-                length: 0,
-                correctText: '',
-                correctLength: 0,
-                isCorrect: true,
-                line: 0,
-            }
-        )
-    }, [refArr])
+  const dispatch = useDispatch();
 
-    
-    const reference = refArr[written.line][0]
-    const referenceWordAmout = refArr[written.line][1]
+  const startCount = useRef(0);
+  const stopCount = useRef(0);
 
-    function handleChangeWritten(event) {
-        const currentInput = event.target.value
+  const referenceLine = refArr[written.line][0];
+  const referenceLineWordAmout = refArr[written.line][1];
 
-        if(currentInput === reference[0]) {startCount.current = stopWatch(); console.log('start')}
-        if(currentInput === reference) {
-            stopCount.current = stopWatch()
-            console.log('end')
-            const minuteDifference = (stopCount.current - startCount.current) / 60
-            console.log(minuteDifference)
-            setTypingSpeed({
-                charactersPerMin: Math.round(reference.length / minuteDifference),
-                wordsPerMin: Math.round(referenceWordAmout / minuteDifference)
-            })
-        }
+  function timeNow() {
+    return Date.now() / 1000;
+  }
 
-        setWritten(inputChecker(currentInput, reference, written))
+  function handleChangeWritten(event) {
+    const currentInput = event.target.value;
+
+    if (currentInput === referenceLine[0]) {
+      startCount.current = timeNow();
+      console.log("start");
+    }
+    if (currentInput === referenceLine) {
+      stopCount.current = timeNow();
+      console.log("end");
+      const minuteDifference = (stopCount.current - startCount.current) / 60;
+      console.log(minuteDifference);
+
+      const charactersPerMin = Math.round(
+        referenceLine.length / minuteDifference
+      );
+      const wordsPerMin = Math.round(referenceLineWordAmout / minuteDifference);
+
+      dispatch(
+        updatePerMin({
+          charactersPerMin: charactersPerMin,
+          wordsPerMin: wordsPerMin,
+        })
+      );
     }
 
-    return (
-        <main className={styles.main}>
-            <ul className={styles.gaugeList}>
-                <li className={styles.gauge}>
-                    SPM: {(typingSpeed.charactersPerMin !== 0)? typingSpeed.charactersPerMin : '-'}
-                </li>
-                <li className={styles.gauge}>
-                    WPM: {(typingSpeed.wordsPerMin !== 0)? typingSpeed.wordsPerMin : '-'}
-                </li>
-            </ul>
-            <form action="" className={styles.inputForm}>
-                <input 
-                type="text" 
-                className={[styles.input, written.isCorrect ? styles.correctInput : styles.incorrectInput].join(' ')}
-                value={written.text} 
-                onChange={handleChangeWritten}
-                autoFocus
-                />
-            </form>
+    const newWritten = inputChecker(currentInput, referenceLine, written);
+    dispatch(updateWritten(newWritten));
+  }
 
-            <p className={written.isCorrect ? styles.copyingText : styles.copyingTextError}>
-                <span className={styles.pastText}>
-                    {written.correctText}
-                </span>
-                {reference.substring(written.correctLength, reference.length)} <br/>
-                {refArr[written.line + 1][0]} <br/>
-                {refArr[written.line + 2][0]}
-            </p>
-        </main>
-    );
+  return (
+    <main className={styles.main}>
+      <ul className={styles.gaugeList}>
+        <li className={styles.gauge}>
+          SPM:{" "}
+          {typingSpeed.charactersPerMin !== 0
+            ? typingSpeed.charactersPerMin
+            : "-"}
+        </li>
+        <li className={styles.gauge}>
+          WPM: {typingSpeed.wordsPerMin !== 0 ? typingSpeed.wordsPerMin : "-"}
+        </li>
+      </ul>
+      <form action="" className={styles.inputForm}>
+        <input
+          type="text"
+          className={[
+            styles.input,
+            written.isCorrect ? styles.correctInput : styles.incorrectInput,
+          ].join(" ")}
+          value={written.text}
+          onChange={handleChangeWritten}
+          autoFocus
+        />
+      </form>
+
+      <p
+        className={
+          written.isCorrect ? styles.copyingText : styles.copyingTextError
+        }
+      >
+        <span className={styles.pastText}>{written.correctText}</span>
+        {referenceLine.substring(
+          written.correctLength,
+          referenceLine.length
+        )}{" "}
+        <br />
+        {refArr[written.line + 1][0]} <br />
+        {refArr[written.line + 2][0]}
+      </p>
+    </main>
+  );
 };
 
 export default MainTextField;

@@ -3,10 +3,12 @@ import AddText from './pages/addText/AddText';
 import Main from './pages/main/Main';
 
 function App() {
+
+
   return (
     <div className={styles.App}>
       <Main />
-      <AddText />
+      {/* <AddText /> */}
     </div>
   );
 }

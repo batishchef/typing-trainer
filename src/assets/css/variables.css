@@ -10,6 +10,7 @@
     --text-passed-color: rgb(199, 199, 199);
     --text-error-color: rgb(247, 63, 63);
     --max-input-width: calc(var(--ui-step) * 60);
+    --dark-theme-main: rgba(24, 18, 70, 0.646);
 }
 
 *, *::before, *::after {
