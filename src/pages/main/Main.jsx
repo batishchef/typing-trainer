@@ -1,32 +1,33 @@
 import MainTextField from "../../components/mainTextField/MainTextField";
 import styles from "./Main.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { changeText } from '../../redux/slices/textSlice'
+import { resetWritten } from "../../redux/slices/writtenSlice";
+
 
 const Main = () => {
-    // const [chosenText, setChosenText] = useState(
-    //     {
-    //         textName: 'theGift',
-    //         textBody: textPreparator(texts['theGift'][0], window.innerWidth)
-    //     }
-    // )
-    // function handleChangeSelect(event) {
-    //     const currentTextName = event.target.value
-    //     setChosenText(
-    //         {
-    //             textName: currentTextName,
-    //             textBody: textPreparator(texts[currentTextName][0], window.innerWidth)
-    //         }
-    //     )
-    // }
-    // const optionItems = Object.keys(texts)
-    // .map(element =>
-    //     <option key={Math.random()} value={element}>{texts[element][1]}</option>
-    //     )
+
+    const dispatch = useDispatch()
+
+    const textOptions = useSelector((state) => state.text.textOptions)
+
+    function handleChangeSelect(event) {
+        const currentTextName = event.target.value
+
+        dispatch(changeText(currentTextName))
+        dispatch(resetWritten())
+    }
+
+    const optionItems = textOptions
+    .map(element =>
+        <option key={Math.random()} value={element}>{element}</option>
+        )
 
   return (
     <div className={styles.Main}>
-      {/* <select name="reference" id="reference-select" value={chosenText.textName} onChange={handleChangeSelect}>
+      <select name="reference" id="reference-select" onChange={handleChangeSelect}>
                 {optionItems}
-            </select> */}
+            </select>
       <MainTextField />
     </div>
   );

@@ -8,7 +8,7 @@ import { updatePerMin } from "../../redux/slices/typingSpeedSlice";
 const MainTextField = () => {
   const written = useSelector((state) => state.written.value);
 
-  const refArr = useSelector((state) => state.text.value.textBody);
+  const refArr = useSelector((state) => state.text.currentText.textBody);
 
   const typingSpeed = useSelector((state) => state.typingSpeed.value);
 
@@ -29,11 +29,9 @@ const MainTextField = () => {
 
     if (currentInput === referenceLine[0]) {
       startCount.current = timeNow();
-      console.log("start");
     }
     if (currentInput === referenceLine) {
       stopCount.current = timeNow();
-      console.log("end");
       const minuteDifference = (stopCount.current - startCount.current) / 60;
       console.log(minuteDifference);
 

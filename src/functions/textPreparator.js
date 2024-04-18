@@ -1,28 +1,21 @@
-export function textPreparator(initialText, windowWidth) {
-    // const segmenter = new Intl.Segmenter([], { granularity: 'word' });
-    // const segmentedInitial = segmenter.segment(initialText);
-    // const initialWords = [...segmentedInitial].filter(s => s.isWordLike).map(s => s.segment);
+export function textPreparator(wordsArr, windowWidth) {
+  const linesArr = [];
 
-    const initialWords = initialText.replace(/\s+/g, ' ').trim().split(' ')
+  const charAmount = windowWidth >= 970 ? 100 : 80;
 
-    const preparedText = [];
-
-    const charAmount = windowWidth >= 970? 100 : 80
-
-    
-    for(let [i,j] = [0, 0]; j < initialWords.length;) {
-        if(preparedText[i] === undefined) {
-            preparedText[i] = [initialWords[j], j]
-            j++
-        } else if(preparedText[i][0]?.length < charAmount) {
-            preparedText[i][0] += ' ' + initialWords[j]
-            j++
-            } else {
-                preparedText[i][0] += ' '
-                preparedText[i][1] = j - preparedText[i][1]
-                i++
-            }
+  for (let [i, j] = [0, 0]; j < wordsArr.length; ) {
+    if (linesArr[i] === undefined) {
+      linesArr[i] = [wordsArr[j], j];
+      j++;
+    } else if (linesArr[i][0]?.length < charAmount) {
+      linesArr[i][0] += " " + wordsArr[j];
+      j++;
+    } else {
+      linesArr[i][0] += " ";
+      linesArr[i][1] = j - linesArr[i][1];
+      i++;
     }
+  }
 
-    return preparedText
+  return linesArr;
 }

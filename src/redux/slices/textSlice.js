@@ -1,39 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { textPreparator } from "../../functions/textPreparator";
-import { texts } from "../../assets/texts/texts";
+import { linesArr } from "../../assets/texts/texts";
+import { changeCurrentText } from "../../functions/changeCurrentText";
 
 const fetchListOfTextHeaders = createAsyncThunk();
 
-const preparedText = textPreparator(
-  texts["theGift"]["textBody"],
-  window.innerWidth
-);
-
 const initialState = {
-  value: {
-    textBody: preparedText,
-    textHeader: "Набоков - Дар",
-    listOfTextHeaders: [],
+  currentText: {
+    textBody: linesArr,
+    textHeader: "theGift",
   },
+  textOptions: ['theGift','lorem'],
 };
-
-console.log(initialState);
 
 export const textSlice = createSlice({
   name: "text",
   initialState,
   reducers: {
-    // updateText: (state, action) => {
-    //   state.value = action.payload;
-    // },
+    changeText: (state, action) => {
+      const newText = changeCurrentText(action.payload)
+      console.log(newText)
+
+      state.currentText = {...newText}
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchListOfTextHeaders.fulfilled, (state, action) => {
-      state.value.listOfTextHeaders = action.payload;
+      state.currentText.listOfTextHeaders = action.payload;
     });
   },
 });
 
-export const { updateText } = textSlice.actions;
+export const { changeText, resetIsUpdated } = textSlice.actions;
 
 export default textSlice.reducer;
