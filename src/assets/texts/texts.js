@@ -2,11 +2,12 @@ import originalTexts from "./originalTexts.json";
 import { textToWords } from "../../functions/textToWords";
 import { textPreparator } from "../../functions/textPreparator";
 
-// const randomWords = fetch("https://random-word-api.vercel.app/api?words=30")
-//   .then((response) => {
-//     return response.json();
-//   })
+// export async function fetchRandomWords() {
+//   const response = await fetch("https://random-word-api.vercel.app/api?words=60");
+//   const randomWords = await response.json();
+//   return textPreparator(randomWords, window.innerWidth);
+// }
 
-const wordsArr = textToWords(originalTexts.theGift.textBody);
+const initialWordsArr = textToWords(originalTexts.theGift.textBody);
 
-export const linesArr = textPreparator(wordsArr, window.innerWidth);
+export const inititaLinesArr = textPreparator(initialWordsArr, window.innerWidth);

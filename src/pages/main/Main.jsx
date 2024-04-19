@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import MainTextField from "../../components/mainTextField/MainTextField";
 import styles from "./Main.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { changeText } from '../../redux/slices/textSlice'
+import { changeText, changeToRandom, fetchRandomLines } from '../../redux/slices/textSlice'
 import { resetWritten } from "../../redux/slices/writtenSlice";
 
 
@@ -11,12 +12,27 @@ const Main = () => {
 
     const textOptions = useSelector((state) => state.text.textOptions)
 
+    const random = useSelector((state) => state.text.otherTexts.randomText.textBody)
+
+    console.log(random)
+
     function handleChangeSelect(event) {
         const currentTextName = event.target.value
 
-        dispatch(changeText(currentTextName))
+        switch (currentTextName) {
+          case 'random':
+            dispatch(changeToRandom());
+            break;
+          default:
+            dispatch(changeText(currentTextName))
+        }
+
         dispatch(resetWritten())
     }
+
+    useEffect(() => {
+      dispatch(fetchRandomLines())
+    }, [dispatch])
 
     const optionItems = textOptions
     .map(element =>

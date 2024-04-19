@@ -4,13 +4,12 @@ import { inputChecker } from "../../functions/inputChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWritten } from "../../redux/slices/writtenSlice";
 import { updatePerMin } from "../../redux/slices/typingSpeedSlice";
+import StatGauge from "../statGauge/StatGauge";
 
 const MainTextField = () => {
   const written = useSelector((state) => state.written.value);
 
   const refArr = useSelector((state) => state.text.currentText.textBody);
-
-  const typingSpeed = useSelector((state) => state.typingSpeed.value);
 
   const dispatch = useDispatch();
 
@@ -33,7 +32,6 @@ const MainTextField = () => {
     if (currentInput === referenceLine) {
       stopCount.current = timeNow();
       const minuteDifference = (stopCount.current - startCount.current) / 60;
-      console.log(minuteDifference);
 
       const charactersPerMin = Math.round(
         referenceLine.length / minuteDifference
@@ -54,17 +52,7 @@ const MainTextField = () => {
 
   return (
     <main className={styles.main}>
-      <ul className={styles.gaugeList}>
-        <li className={styles.gauge}>
-          SPM:{" "}
-          {typingSpeed.charactersPerMin !== 0
-            ? typingSpeed.charactersPerMin
-            : "-"}
-        </li>
-        <li className={styles.gauge}>
-          WPM: {typingSpeed.wordsPerMin !== 0 ? typingSpeed.wordsPerMin : "-"}
-        </li>
-      </ul>
+      <StatGauge />
       <form action="" className={styles.inputForm}>
         <input
           type="text"
