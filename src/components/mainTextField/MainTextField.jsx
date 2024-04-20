@@ -1,27 +1,36 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./MainTextField.module.css";
 import { inputChecker } from "../../functions/inputChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWritten } from "../../redux/slices/writtenSlice";
 import { updatePerMin } from "../../redux/slices/typingSpeedSlice";
 import StatGauge from "../statGauge/StatGauge";
+import { typingSpeed } from "../../functions/typingSpeed";
+import { fetchAddLines, updateLine } from "../../redux/slices/textSlice";
 
 const MainTextField = () => {
   const written = useSelector((state) => state.written.value);
-
   const refArr = useSelector((state) => state.text.currentText.textBody);
-
+  // const refHeader = useSelector((state) => state.text.currentText.textHeader);
   const dispatch = useDispatch();
-
   const startCount = useRef(0);
   const stopCount = useRef(0);
+  const currentLine = useSelector(
+    (state) => state.text.currentText.currentLine
+  );
+  const referenceLine = refArr[currentLine][0];
+  const referenceLineWordAmout = refArr[currentLine][1];
+  const needUpdated = useSelector(
+    (state) => state.text.currentText.needUpdated
+  );
+  const timeNow = () => Date.now() / 1000;
 
-  const referenceLine = refArr[written.line][0];
-  const referenceLineWordAmout = refArr[written.line][1];
-
-  function timeNow() {
-    return Date.now() / 1000;
-  }
+  useEffect(() => {
+    if (needUpdated) {
+      const remainArr = refArr.slice(currentLine);
+      dispatch(fetchAddLines(remainArr));
+    }
+  }, [needUpdated, currentLine, dispatch, refArr]);
 
   function handleChangeWritten(event) {
     const currentInput = event.target.value;
@@ -31,18 +40,18 @@ const MainTextField = () => {
     }
     if (currentInput === referenceLine) {
       stopCount.current = timeNow();
-      const minuteDifference = (stopCount.current - startCount.current) / 60;
 
-      const charactersPerMin = Math.round(
-        referenceLine.length / minuteDifference
-      );
-      const wordsPerMin = Math.round(referenceLineWordAmout / minuteDifference);
+      dispatch(updateLine());
 
       dispatch(
-        updatePerMin({
-          charactersPerMin: charactersPerMin,
-          wordsPerMin: wordsPerMin,
-        })
+        updatePerMin(
+          typingSpeed(
+            startCount.current,
+            stopCount.current,
+            referenceLine.length,
+            referenceLineWordAmout
+          )
+        )
       );
     }
 
@@ -77,8 +86,8 @@ const MainTextField = () => {
           referenceLine.length
         )}{" "}
         <br />
-        {refArr[written.line + 1][0]} <br />
-        {refArr[written.line + 2][0]}
+        {refArr[currentLine + 1][0]} <br />
+        {refArr[currentLine + 2][0]}
       </p>
     </main>
   );

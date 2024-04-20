@@ -10,7 +10,6 @@ export function inputChecker(currentInput, reference, written) {
                 correctText: '',
                 correctLength: 0,
                 isCorrect: true,
-                line: written.line + 1
             }
         )
     }
@@ -18,7 +17,6 @@ export function inputChecker(currentInput, reference, written) {
     if(currentInput === typedReference) {
         return (
             {
-                ...written,
                 text: currentInput,
                 length: currentLength,
                 correctText: currentInput,

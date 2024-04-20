@@ -2,27 +2,28 @@ import React from "react";
 import styles from "./StatGauge.module.css";
 import { useSelector } from "react-redux";
 
-
 const StatGauge = () => {
-    const typingSpeed = useSelector((state) => state.typingSpeed.value)
-
+  const charactersPerMin = useSelector(
+    (state) => state.typingSpeed.value.charactersPerMin
+  );
+  const averageCharactersPerMin = useSelector(
+    (state) => state.typingSpeed.value.averageCharactersPerMin.value
+  );
+  const wordsPerMin = useSelector(
+    (state) => state.typingSpeed.value.wordsPerMin
+  );
+  const averageWordsPerMin = useSelector(
+    (state) => state.typingSpeed.value.averageWordsPerMin.value
+  );
   return (
     <ul className={styles.gaugeList}>
       <li className={styles.gauge}>
-        SPM:{" "}
-        {typingSpeed.charactersPerMin !== 0
-          ? typingSpeed.charactersPerMin
-          : "-"}{" "}
-        /{" "}
-        {typingSpeed.averageCharactersPerMin.value !== 0
-          ? typingSpeed.averageCharactersPerMin.value
-          : "-"}
+        SPM: {charactersPerMin !== 0 ? charactersPerMin : "-"} /{" "}
+        {averageCharactersPerMin !== 0 ? averageCharactersPerMin : "-"}
       </li>
       <li className={styles.gauge}>
-        WPM: {typingSpeed.wordsPerMin !== 0 ? typingSpeed.wordsPerMin : "-"} /{" "}
-        {typingSpeed.averageWordsPerMin.value !== 0
-          ? typingSpeed.averageWordsPerMin.value
-          : "-"}
+        WPM: {wordsPerMin !== 0 ? wordsPerMin : "-"} /{" "}
+        {averageWordsPerMin !== 0 ? averageWordsPerMin : "-"}
       </li>
     </ul>
   );

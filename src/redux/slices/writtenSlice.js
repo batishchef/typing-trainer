@@ -7,7 +7,6 @@ const initialState = {
     correctText: '',
     correctLength: 0,
     isCorrect: true,
-    line: 0,
   }
 }
   
@@ -25,7 +24,6 @@ const initialState = {
           correctText: '',
           correctLength: 0,
           isCorrect: true,
-          line: 0,
         }
       }
     },
