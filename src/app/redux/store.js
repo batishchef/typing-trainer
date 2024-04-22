@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import text from "../../features/mainTextField/model/textSlice";
-import typingSpeed from "../../features/mainTextField/model/typingSpeedSlice";
+import text from "../../features/typingField/model/textSlice";
+import typingSpeed from "../../features/typingField/model/typingSpeedSlice";
 
 export const store = configureStore({
   reducer: {

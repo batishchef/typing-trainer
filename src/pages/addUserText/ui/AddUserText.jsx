@@ -1,6 +1,6 @@
 import AddMyText from "../../../components/addMyText/AddMyText";
 
-const AddText = () => {
+const AddUserText = () => {
     return (
         <div>
             <AddMyText />
@@ -8,4 +8,4 @@ const AddText = () => {
     );
 };
 
-export default AddText;
+export default AddUserText;

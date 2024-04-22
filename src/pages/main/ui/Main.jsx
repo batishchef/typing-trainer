@@ -1,44 +1,20 @@
-import { useEffect } from "react";
-import MainTextField from "../../../features/mainTextField/ui/MainTextField";
+import TypingField from "../../../features/typingField/ui/TypingField";
 import styles from "./Main.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  changeText
-} from "../../../features/mainTextField/model/textSlice";
-import { fetchRandomLines } from "../../../shared/api/api";
+import TextSelector from "../../../features/textSelector/ui/TextSelector";
+import { useSelector } from "react-redux";
+
 
 const Main = () => {
-  const dispatch = useDispatch();
+  const selectedText = useSelector((state) => state.text.currentTextHeader)
 
-  const textOptions = useSelector((state) => state.text.textOptions);
-
-  useEffect(() => {
-    dispatch(fetchRandomLines());
-  }, [dispatch]);
-
-  function handleChangeSelect(event) {
-    const currentTextName = event.target.value;
-    dispatch(changeText(currentTextName))
-  }
-
-  const optionItems = textOptions.map((element) => (
-    <option key={Math.random()} value={element}>
-      {element}
-    </option>
-  ));
 
   return (
     <div className={styles.Main}>
-      <select
-        name="reference"
-        id="reference-select"
-        onChange={handleChangeSelect}
-      >
-        {optionItems}
-      </select>
-
+      
+      <TextSelector />
+      <h1>{selectedText}</h1>
       {/* {isError ? <div className="">ERRORRRRR</div> : <MainTextField />} */}
-      <MainTextField />
+      <TypingField />
     </div>
   );
 };

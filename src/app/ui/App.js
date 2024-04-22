@@ -1,5 +1,5 @@
 import styles from './App.module.css';
-// import AddText from './pages/addText/AddText';
+// import AddUserText from './pages/addText/AddUserText';
 import Main from '../../pages/main/ui/Main';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className={styles.App}>
       <Main />
-      {/* <AddText /> */}
+      {/* <AddUserText /> */}
     </div>
   );
 }

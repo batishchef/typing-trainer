@@ -1,7 +1,7 @@
 # Perfect typing trainer
 
 ## Check out the project
-Check out here: [versel.deployment](https://typing-trainer-89sxbvhkq-nikitas-projects-5a29cca7.vercel.app/)
+Check out here: [versel.deployment](https://typing-trainer-beryl.vercel.app/)
 
 ## About
 A trainer for developing your typing speed and accuracy

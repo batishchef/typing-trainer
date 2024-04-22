@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./MainTextField.module.css";
+import styles from "./TypingField.module.css";
 import { inputChecker } from "../lib/inputChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePerMin } from "../model/typingSpeedSlice";
@@ -9,7 +9,7 @@ import { updateLine, resetIsTextChanged } from "../model/textSlice";
 import RefLines from "../../../entities/refLines/ui/RefLines";
 import { fetchAddLines } from "../../../shared/api/api";
 
-const MainTextField = () => {
+const TypingField = () => {
   const currentTextHeader = useSelector(
     (state) => state.text.currentTextHeader
   );
@@ -113,4 +113,4 @@ const MainTextField = () => {
   );
 };
 
-export default MainTextField;
+export default TypingField;
