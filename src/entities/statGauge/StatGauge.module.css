@@ -1,0 +1,12 @@
+@import url(../../app/styles/variables.css);
+
+.gaugeList {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.gauge {
+  padding: 0 calc(var(--ui-step) * 2);
+}

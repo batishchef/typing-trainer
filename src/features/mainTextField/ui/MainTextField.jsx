@@ -1,0 +1,98 @@
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./MainTextField.module.css";
+import { inputChecker } from "../lib/inputChecker";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePerMin } from "../model/typingSpeedSlice";
+import StatGauge from "../../../entities/statGauge/StatGauge";
+import { typingSpeed } from "../lib/typingSpeed";
+import { fetchAddLines, updateLine } from "../../../app/redux/textSlice/textSlice";
+import RefLines from "../../../entities/refLines/ui/RefLines";
+
+const MainTextField = () => {
+  const refArr = useSelector((state) => state.text.currentText.textBody);
+  const dispatch = useDispatch();
+  const startCount = useRef(0);
+  const stopCount = useRef(0);
+  const currentLine = useSelector(
+    (state) => state.text.currentText.currentLine
+  );
+  const referenceLine = refArr[currentLine][0];
+  const referenceLineWordAmout = refArr[currentLine][1];
+  const needUpdated = useSelector(
+    (state) => state.text.currentText.needUpdated
+  );
+  const [written, setWritten] = useState({
+    text: "",
+    length: 0,
+    correctText: "",
+    correctLength: 0,
+    isCorrect: true,
+  });
+  const timeNow = () => Date.now() / 1000;
+
+  useEffect(() => {
+    if (needUpdated) {
+      const remainArr = refArr.slice(currentLine);
+      dispatch(fetchAddLines(remainArr));
+    }
+  }, [needUpdated, currentLine, dispatch, refArr]);
+
+  function handleChangeWritten(event) {
+    const currentInput = event.target.value;
+
+    if (currentInput === referenceLine[0]) {
+      startCount.current = timeNow();
+    }
+    if (currentInput === referenceLine) {
+      stopCount.current = timeNow();
+
+      dispatch(updateLine());
+
+      dispatch(
+        updatePerMin(
+          typingSpeed(
+            startCount.current,
+            stopCount.current,
+            referenceLine.length,
+            referenceLineWordAmout
+          )
+        )
+      );
+    }
+
+    const newWritten = inputChecker(currentInput, referenceLine, written);
+    setWritten((written) => newWritten);
+  }
+
+  return (
+    <main className={styles.main}>
+      <StatGauge />
+      <form
+        action=""
+        className={styles.inputForm}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <input
+          type="text"
+          className={[
+            styles.input,
+            written.isCorrect ? styles.correctInput : styles.incorrectInput,
+          ].join(" ")}
+          value={written.text}
+          onChange={handleChangeWritten}
+          autoFocus
+        />
+      </form>
+
+      <RefLines
+        referenceLine={referenceLine}
+        correctLength={written.correctLength}
+        scndLine={refArr[currentLine + 1][0]}
+        thrdLine={refArr[currentLine + 2][0]}
+        isCorrect={written.isCorrect}
+      />
+    </main>
+  );
+};
+
+export default MainTextField;
