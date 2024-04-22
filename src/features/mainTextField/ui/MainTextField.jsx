@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePerMin } from "../model/typingSpeedSlice";
 import StatGauge from "../../../entities/statGauge/StatGauge";
 import { typingSpeed } from "../lib/typingSpeed";
-import { updateLine, resetIsTextChanged } from "../../../app/redux/textSlice/textSlice";
+import { updateLine, resetIsTextChanged } from "../model/textSlice";
 import RefLines from "../../../entities/refLines/ui/RefLines";
 import { fetchAddLines } from "../../../shared/api/api";
 

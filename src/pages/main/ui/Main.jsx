@@ -4,7 +4,7 @@ import styles from "./Main.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeText
-} from "../../../app/redux/textSlice/textSlice";
+} from "../../../features/mainTextField/model/textSlice";
 import { fetchRandomLines } from "../../../shared/api/api";
 
 const Main = () => {

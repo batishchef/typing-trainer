@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { inititaLinesArr } from "../../texts/texts";
+import { inititaLinesArr } from "../../../shared/texts/texts";
 // import { changeCurrentText } from "./lib/changeCurrentText";
 import { fetchRandomLines, fetchAddLines } from "../../../shared/api/api";
 

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import text from "./textSlice/textSlice";
+import text from "../../features/mainTextField/model/textSlice";
 import typingSpeed from "../../features/mainTextField/model/typingSpeedSlice";
 
 export const store = configureStore({
