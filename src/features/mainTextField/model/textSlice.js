@@ -4,7 +4,7 @@ import { inititaLinesArr } from "../../../shared/texts/texts";
 import { fetchRandomLines, fetchAddLines } from "../../../shared/api/api";
 
 const initialState = {
-  textOptions: ["theGift", "lorem", "randomText"],
+  textOptions: ["theGift", "randomText"],
   currentTextHeader: "theGift",
   isTextChanged: false,
 
