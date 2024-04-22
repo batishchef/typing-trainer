@@ -3,23 +3,14 @@ import MainTextField from "../../../features/mainTextField/ui/MainTextField";
 import styles from "./Main.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeText,
-  changeToRandom,
-  fetchRandomLines
-  } from "../../../app/redux/textSlice/textSlice";
+  changeText
+} from "../../../app/redux/textSlice/textSlice";
+import { fetchRandomLines } from "../../../shared/api/api";
 
 const Main = () => {
   const dispatch = useDispatch();
 
   const textOptions = useSelector((state) => state.text.textOptions);
-
-  // const random = useSelector(
-  //   (state) => state.text.otherTexts.randomText.textBody
-  // );
-
-  // const isError = useSelector(
-  //   (state) => state.text.otherTexts.randomText.error
-  // );
 
   useEffect(() => {
     dispatch(fetchRandomLines());
@@ -27,14 +18,7 @@ const Main = () => {
 
   function handleChangeSelect(event) {
     const currentTextName = event.target.value;
-
-    switch (currentTextName) {
-      case "random":
-        dispatch(changeToRandom());
-        break;
-      default:
-        dispatch(changeText(currentTextName));
-    }
+    dispatch(changeText(currentTextName))
   }
 
   const optionItems = textOptions.map((element) => (

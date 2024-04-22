@@ -5,21 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePerMin } from "../model/typingSpeedSlice";
 import StatGauge from "../../../entities/statGauge/StatGauge";
 import { typingSpeed } from "../lib/typingSpeed";
-import { fetchAddLines, updateLine } from "../../../app/redux/textSlice/textSlice";
+import { updateLine, resetIsTextChanged } from "../../../app/redux/textSlice/textSlice";
 import RefLines from "../../../entities/refLines/ui/RefLines";
+import { fetchAddLines } from "../../../shared/api/api";
 
 const MainTextField = () => {
-  const refArr = useSelector((state) => state.text.currentText.textBody);
+  const currentTextHeader = useSelector(
+    (state) => state.text.currentTextHeader
+  );
+  const isTextChanged = useSelector((state) => state.text.isTextChanged);
+  const refArr = useSelector((state) => state.text[currentTextHeader].textBody);
   const dispatch = useDispatch();
   const startCount = useRef(0);
   const stopCount = useRef(0);
   const currentLine = useSelector(
-    (state) => state.text.currentText.currentLine
+    (state) => state.text[currentTextHeader].currentLine
   );
   const referenceLine = refArr[currentLine][0];
   const referenceLineWordAmout = refArr[currentLine][1];
   const needUpdated = useSelector(
-    (state) => state.text.currentText.needUpdated
+    (state) => state.text[currentTextHeader].needUpdated
   );
   const [written, setWritten] = useState({
     text: "",
@@ -37,6 +42,19 @@ const MainTextField = () => {
     }
   }, [needUpdated, currentLine, dispatch, refArr]);
 
+  useEffect(() => {
+    if (isTextChanged) {
+      setWritten({
+        text: "",
+        length: 0,
+        correctText: "",
+        correctLength: 0,
+        isCorrect: true,
+      });
+      dispatch(resetIsTextChanged())
+    }
+  }, [isTextChanged, dispatch]);
+
   function handleChangeWritten(event) {
     const currentInput = event.target.value;
 
@@ -46,7 +64,7 @@ const MainTextField = () => {
     if (currentInput === referenceLine) {
       stopCount.current = timeNow();
 
-      dispatch(updateLine());
+      dispatch(updateLine(currentTextHeader));
 
       dispatch(
         updatePerMin(

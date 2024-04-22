@@ -1,5 +1,5 @@
-import { textPreparator } from "./textPreparator";
-import { textToWords } from "../../../../unused/textToWords";
+import { textPreparator } from "../../../../shared/lib/textPreparator";
+import { textToWords } from "../../../../shared/lib/textToWords";
 import originalTexts from "../../../texts/originalTexts.json";
 
 export const changeCurrentText = function (newTextHeader) {

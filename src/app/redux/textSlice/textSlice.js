@@ -1,77 +1,31 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { inititaLinesArr } from "../../texts/texts";
-import { changeCurrentText } from "./lib/changeCurrentText";
-import { textPreparator } from "./lib/textPreparator";
-
-const url = {
-  random: "https://random-word-api.vercel.app/api?words="
-}
-
-export const fetchRandomLines = createAsyncThunk(
-  "text/fetchRandomLines",
-  async function (_, { rejectWithValue }) {
-    try {
-      const response = await fetch(
-        `${url.random}60`
-      );
-
-      if (!response.ok) {
-        throw new Error("Server error!");
-      }
-
-      const randomWords = await response.json();
-
-      return textPreparator(randomWords, window.innerWidth);
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const fetchAddLines = createAsyncThunk(
-  'text/fetchAddLines',
-  async function (remainLines, {rejectWithValue}) {
-    try {
-      const response = await fetch(
-        `${url.random}30`
-      );
-
-      if (!response.ok) {
-        throw new Error("Server error!");
-      }
-
-      const randomWords = await response.json();
-
-      const newLines = textPreparator(randomWords, window.innerWidth);
-      return [...remainLines, ...newLines]
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-)
+// import { changeCurrentText } from "./lib/changeCurrentText";
+import { fetchRandomLines, fetchAddLines } from "../../../shared/api/api";
 
 const initialState = {
-  textOptions: ["theGift", "lorem", "random"],
+  textOptions: ["theGift", "lorem", "randomText"],
+  currentTextHeader: "theGift",
+  isTextChanged: false,
 
-  currentText: {
-    textID: '0001',
+  theGift: {
+    textID: "0001",
     textHeader: "theGift",
     textBody: inititaLinesArr,
     currentLine: 0,
     status: null,
     error: null,
-    needUpdated: false
+    needUpdated: false,
   },
 
-  otherTexts: {
-    randomText: {
-      textID: '0003',
-      textHeader: "random",
-      textBody: [],
-      currentLine: 0,
-      status: null,
-      error: null,
-    },
+  randomText: {
+    textID: "0003",
+    textHeader: "randomText",
+    textBody: [],
+    currentLine: 0,
+    status: null,
+    error: null,
+    needUpdated: false,
   },
 };
 
@@ -79,46 +33,51 @@ export const textSlice = createSlice({
   name: "text",
   initialState,
   reducers: {
-    updateLine: (state) => {
-      state.currentText.currentLine += 1
-      if(state.currentText.currentLine === 2) {
-        state.currentText.needUpdated = true
+    updateLine: (state, action) => {
+      const currentTextHeader = action.payload;
+
+      state[currentTextHeader].currentLine += 1;
+      if (state[currentTextHeader].currentLine === 2) {
+        state[currentTextHeader].needUpdated = true;
       }
     },
-    changeText: (state, action) => {
-      const newText = changeCurrentText(action.payload);
-      console.log(newText);
 
-      state.currentText = { ...newText };
+    changeText: (state, action) => {
+      const newText = action.payload;
+      state.currentTextHeader = newText;
+      state.isTextChanged = true;
     },
-    changeToRandom: (state) => {
-      state.currentText = state.otherTexts.randomText;
+
+    resetIsTextChanged: (state) => {
+      state.isTextChanged = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRandomLines.pending, (state) => {
-        state.otherTexts.randomText.status = "loading";
-        state.otherTexts.randomText.error = null;
+        state.randomText.status = "loading";
+        state.randomText.error = null;
       })
 
       .addCase(fetchRandomLines.fulfilled, (state, action) => {
-        state.otherTexts.randomText.textBody = action.payload;
+        state.randomText.textBody = action.payload;
       })
 
       .addCase(fetchRandomLines.rejected, (state, action) => {
-        state.otherTexts.randomText.status = "rejected";
-        state.otherTexts.randomText.error = action.payload;
+        state.randomText.status = "rejected";
+        state.randomText.error = action.payload;
       })
 
       .addCase(fetchAddLines.fulfilled, (state, action) => {
-        state.currentText.textBody = action.payload
-        state.currentText.currentLine = 0
-        state.currentText.needUpdated = false
-      })
+        const currentTextHeader = action.header;
+
+        state[currentTextHeader].textBody = action.payload;
+        state[currentTextHeader].currentLine = 0;
+        state[currentTextHeader].needUpdated = false;
+      });
   },
 });
 
-export const { updateLine, changeText, changeToRandom, resetIsUpdated } = textSlice.actions;
+export const { updateLine, changeText, resetIsUpdated, resetIsTextChanged } = textSlice.actions;
 
 export default textSlice.reducer;
