@@ -14,7 +14,11 @@ A trainer for developing your typing speed and accuracy
 <!-- [![TypeScript][shields-typescript-domain]](https://www.typescriptlang.org/) </br> -->
 <!-- [![React Router][shields-react-router-domain]](https://reactrouter.com/) </br> -->
 [![Redux Toolkit][shields-redux-domain]](https://redux-toolkit.js.org/) </br>
+
+
 [Create-React-App](https://vitejs.dev/) </br>
+
+
 [![Feature-Sliced Design][shields-fsd-domain]](https://feature-sliced.design/) </br>
 
 <!-- [shields-react-router-domain]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white -->
