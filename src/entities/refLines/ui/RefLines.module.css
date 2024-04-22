@@ -1,0 +1,18 @@
+@import url(../../../app/styles/variables.css);
+
+.incorrectInput {
+    background-color: var(--input-error-color);
+}
+
+.pastText {
+    color: var(--text-passed-color);
+}
+
+.copyingText {
+    text-align: center;
+}
+.copyingTextError {
+    text-align: center;
+    color: var(--text-error-color);
+}
+
