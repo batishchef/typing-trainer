@@ -1,5 +1,8 @@
 # Perfect typing trainer
 
+# Check out the project
+Check out here: [versel.deployment](https://typing-trainer-89sxbvhkq-nikitas-projects-5a29cca7.vercel.app/)
+
 ## About
 A trainer for developing your typing speed and accuracy
 
@@ -8,18 +11,22 @@ A trainer for developing your typing speed and accuracy
  - Your speed indicators 
 
 ## Technology stack
-<!-- [![Vite][shields-vite-domain]](https://vitejs.dev/) </br> -->
-<!-- [![Sass][shields-sass-domain]](https://sass-scss.ru/) </br> -->
 [![React][shields-react-domain]](https://react.dev/) </br>
-<!-- [![TypeScript][shields-typescript-domain]](https://www.typescriptlang.org/) </br> -->
-<!-- [![React Router][shields-react-router-domain]](https://reactrouter.com/) </br> -->
-[![Redux Toolkit][shields-redux-domain]](https://redux-toolkit.js.org/) </br>
 
+[![Redux Toolkit][shields-redux-domain]](https://redux-toolkit.js.org/) </br>
 
 [Create-React-App](https://vitejs.dev/) </br>
 
-
 [![Feature-Sliced Design][shields-fsd-domain]](https://feature-sliced.design/) </br>
+
+<!-- [![Vite][shields-vite-domain]](https://vitejs.dev/) </br> -->
+<!-- [![Sass][shields-sass-domain]](https://sass-scss.ru/) </br> -->
+<!-- [![TypeScript][shields-typescript-domain]](https://www.typescriptlang.org/) </br> -->
+<!-- [![React Router][shields-react-router-domain]](https://reactrouter.com/) </br> -->
+
+
+
+
 
 <!-- [shields-react-router-domain]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white -->
 <!-- [shields-typescript-domain]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white -->
