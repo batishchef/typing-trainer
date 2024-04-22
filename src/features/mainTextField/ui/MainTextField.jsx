@@ -3,7 +3,7 @@ import styles from "./MainTextField.module.css";
 import { inputChecker } from "../lib/inputChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePerMin } from "../model/typingSpeedSlice";
-import StatGauge from "../../../entities/statGauge/StatGauge";
+import StatGauge from "../../../entities/statGauge/ui/StatGauge";
 import { typingSpeed } from "../lib/typingSpeed";
 import { updateLine, resetIsTextChanged } from "../model/textSlice";
 import RefLines from "../../../entities/refLines/ui/RefLines";
