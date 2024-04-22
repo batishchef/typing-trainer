@@ -1,6 +1,6 @@
 # Perfect typing trainer
 
-# Check out the project
+## Check out the project
 Check out here: [versel.deployment](https://typing-trainer-89sxbvhkq-nikitas-projects-5a29cca7.vercel.app/)
 
 ## About
