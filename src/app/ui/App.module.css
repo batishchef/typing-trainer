@@ -7,4 +7,5 @@
   justify-content: center;
   font-family: var(--writing-text-font);
   font-size: calc(var(--ui-step) * 1.2);
+  background-color: var(--dark-theme-main);
 }

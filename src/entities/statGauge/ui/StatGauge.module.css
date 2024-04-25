@@ -1,6 +1,8 @@
 @import url(../../../shared/styles/variables.css);
 
 .gaugeList {
+  /* margin-right: calc(var(--ui-step) * 2); */
+  /* padding: 0 50px; */
   align-self: end;
   display: flex;
   flex-direction: column;

@@ -1,25 +1,12 @@
 @import url(../../../shared/styles/variables.css);
 
-
-.main {
+.typingField {
+    /* margin: 200px 0 200px; */
+    padding: 0 50px;
+    /* margin: var(--main-form-margin) 0; */
+    padding: 0 calc(var(--ui-step) * 2);
+    align-self: center;
     width: min(var(--max-input-width), 100%);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: var(--main-form-margin) 0 0;
-    padding: 0 calc(var(--ui-step) * 2);
-}
-
-.gaugeList {
-    align-self: end;
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-}
-
-.gauge {
-    padding: 0 calc(var(--ui-step) * 2);
 }
 
 .inputForm {

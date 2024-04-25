@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./StatGauge.module.css";
+import styles from "./statGauge.module.css";
 import { useSelector } from "react-redux";
 
 const StatGauge = () => {
@@ -15,11 +15,7 @@ const StatGauge = () => {
   const averageWordsPerMin = useSelector(
     (state) => state.typingSpeed.value.averageWordsPerMin.value
   );
-
-  console.log("rerender")
-
-  // const {countLines, averageCharactersPerMin, wordsPerMin, averageWordsPerMin} = state
-  
+    
   return (
     <ul className={styles.gaugeList}>
       <li className={styles.gauge}>

@@ -15,8 +15,8 @@ const RefLines = ({
     <p className={isCorrect ? styles.copyingText : styles.copyingTextError}>
       <span className={styles.pastText}>{correctText}</span>
       {unwrittenText} <br />
-      {scndLine} <br />
-      {thrdLine}
+      {scndLine && true ? scndLine : ''} <br />
+      {thrdLine && true ? thrdLine : ''}
     </p>
   );
 };

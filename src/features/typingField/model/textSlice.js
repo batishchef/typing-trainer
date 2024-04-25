@@ -69,7 +69,7 @@ export const textSlice = createSlice({
       })
 
       .addCase(fetchAddLines.fulfilled, (state, action) => {
-        const currentTextHeader = action.header;
+        const currentTextHeader = state.currentTextHeader;
 
         state[currentTextHeader].textBody = action.payload;
         state[currentTextHeader].currentLine = 0;

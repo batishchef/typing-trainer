@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { storageAvailable } from '../../functions/storageAvailable';
-import styles from './AddMyText.module.css'
+import styles from './addMyText.module.css'
 
 const AddMyText = () => {
     const [newText, setNewText] = useState({

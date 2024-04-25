@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./TypingField.module.css";
+import styles from "./typingField.module.css";
 import { inputChecker } from "../lib/inputChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePerMin } from "../model/typingSpeedSlice";
-import StatGauge from "../../../entities/statGauge/ui/StatGauge";
 import { typingSpeed } from "../lib/typingSpeed";
 import { updateLine, resetIsTextChanged } from "../model/textSlice";
 import RefLines from "../../../entities/refLines/ui/RefLines";
@@ -36,7 +35,7 @@ const TypingField = () => {
   const timeNow = () => Date.now() / 1000;
 
   useEffect(() => {
-    if (needUpdated) {
+    if (needUpdated && false) {
       const remainArr = refArr.slice(currentLine);
       dispatch(fetchAddLines(remainArr));
     }
@@ -51,7 +50,7 @@ const TypingField = () => {
         correctLength: 0,
         isCorrect: true,
       });
-      dispatch(resetIsTextChanged())
+      dispatch(resetIsTextChanged());
     }
   }, [isTextChanged, dispatch]);
 
@@ -79,12 +78,16 @@ const TypingField = () => {
     }
 
     const newWritten = inputChecker(currentInput, referenceLine, written);
-    setWritten((written) => newWritten);
+    setWritten(() => newWritten);
   }
 
+  const scndLine =
+    currentLine + 1 < refArr.length ? refArr[currentLine + 1][0] : undefined;
+  const thrdLine =
+    currentLine + 2 < refArr.length ? refArr[currentLine + 2][0] : undefined;
+
   return (
-    <main className={styles.main}>
-      <StatGauge />
+    <main className={styles.typingField}>
       <form
         action=""
         className={styles.inputForm}
@@ -105,8 +108,8 @@ const TypingField = () => {
       <RefLines
         referenceLine={referenceLine}
         correctLength={written.correctLength}
-        scndLine={refArr[currentLine + 1][0]}
-        thrdLine={refArr[currentLine + 2][0]}
+        scndLine={scndLine}
+        thrdLine={thrdLine}
         isCorrect={written.isCorrect}
       />
     </main>
