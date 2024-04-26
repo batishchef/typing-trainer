@@ -13,7 +13,7 @@ const Main = () => {
     <div className={styles.Main}>
       
       <TextSelector />
-      <h1>{selectedText}</h1>
+      <h1 className={styles.header}>{selectedText}</h1>
       <StatGauge />
       <TypingField />
     </div>
