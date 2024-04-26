@@ -2,7 +2,6 @@
 
 .Main {
   width: calc(var(--ui-step) * 60);
-  /* width: min(var(--max-input-width), 100%); */
   height: 100vh;
   display: flex;
   flex-direction: column;

@@ -15,7 +15,6 @@ const Main = () => {
       <TextSelector />
       <h1>{selectedText}</h1>
       <StatGauge />
-      {/* {isError ? <div className="">ERRORRRRR</div> : <MainTextField />} */}
       <TypingField />
     </div>
   );
