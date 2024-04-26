@@ -1,4 +1,4 @@
-import styles from './App.module.css';
+import styles from './app.module.css';
 // import AddUserText from './pages/addText/AddUserText';
 import Main from '../../pages/main/ui/Main';
 
