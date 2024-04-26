@@ -1,4 +1,4 @@
-@import url(../../../shared/styles/variables.css);
+@import url(../../../../shared/styles/variables.css);
 
 .typingField {
     /* margin: 200px 0 200px; */
@@ -9,10 +9,10 @@
     width: min(var(--max-input-width), 100%);
 }
 
-.inputForm {
+/* .inputForm {
     width: 100%;
     align-self: center;
-}
+} */
 
 .input {
     width: 100%;
@@ -25,7 +25,7 @@
     border-radius: 5px;
     padding-bottom: 3px;
 
-    &focus {
+    &:focus {
         outline: none;
         border: 1px white solid;
         border-bottom: 1px var(--input-form-focused-border-color) solid;
@@ -35,16 +35,3 @@
 .incorrectInput {
     background-color: var(--input-error-color);
 }
-
-.pastText {
-    color: var(--text-passed-color);
-}
-
-.copyingText {
-    text-align: center;
-}
-.copyingTextError {
-    text-align: center;
-    color: var(--text-error-color);
-}
-

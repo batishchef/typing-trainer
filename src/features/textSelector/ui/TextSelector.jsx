@@ -1,37 +1,40 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeText } from "../../../features/typingField/model/textSlice";
-import { fetchRandomLines } from "../../../shared/api/api";
-import styles from './textSelector.module.css'
+import styles from "./textSelector.module.css";
+import { fetchAddLines, fetchNewText } from "../../../shared/api/api";
 
 const TextSelector = () => {
   const dispatch = useDispatch();
-  // const currentTextHeader = useSelector((state) => state.text.currentTextHeader);
-  const textOptions = useSelector((state) => state.text.textOptions);
-
-  useEffect(() => {
-    dispatch(fetchRandomLines());
-  }, [dispatch]);
+  const textIdOptions = useSelector((state) => state.text.textOptions);
+  const texts = useSelector((state) => state.text);
 
   function handleButtonClick(event) {
-    const currentTextName = event.target.value;
-    dispatch(changeText(currentTextName));
+    const currentTextId = event.target.value;
+    dispatch(changeText(currentTextId));
+
+    if (!texts.hasOwnProperty(currentTextId)) {
+      dispatch(fetchNewText(currentTextId));
+    } else if(texts[currentTextId]?.textBody.length < 6) {
+      dispatch(fetchAddLines(currentTextId))
+    }
   }
 
-  // const buttonStylePicker() {
-  //   if(currentTextHeader === value) {
-      
-  //   }
-  // }
 
 
-  const selectOptions = textOptions.map((element) => (
-      <li key={Math.random()}>
-        <button className={styles.optionButton} onClick={handleButtonClick} value={element}>
-          {element}
-        </button>
-      </li>
-    ));
+  const selectOptions = Object.entries(textIdOptions).map((element) => {
+    const [id, textHeader] = element
+    return (
+    <li key={Math.random()}>
+      <button
+        className={styles.optionButton}
+        onClick={handleButtonClick}
+        value={id}
+      >
+        {textHeader}
+      </button>
+    </li>
+  )});
 
   return (
     <ol className={styles.optionsList} name="reference" id="reference-select">

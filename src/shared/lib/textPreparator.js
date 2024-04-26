@@ -3,16 +3,17 @@ export function textPreparator(wordsArr, windowWidth) {
 
   const charAmount = windowWidth >= 970 ? 100 : 80;
 
-  for (let [i, j] = [0, 0]; j < wordsArr.length; ) {
+  let [i, j] = [0, 0]
+
+  while(j < wordsArr.length) {
     if (linesArr[i] === undefined) {
-      linesArr[i] = [wordsArr[j], j];
+      linesArr[i] = [wordsArr[j] + ' ', 1];
       j++;
     } else if (linesArr[i][0]?.length < charAmount) {
-      linesArr[i][0] += " " + wordsArr[j];
+      linesArr[i][0] += wordsArr[j] + ' ';
+      linesArr[i][1] += 1;
       j++;
     } else {
-      linesArr[i][0] += " ";
-      linesArr[i][1] = j - linesArr[i][1];
       i++;
     }
   }

@@ -6,8 +6,8 @@ import StatGauge from "../../../entities/statGauge/ui/StatGauge";
 
 
 const Main = () => {
-  const selectedText = useSelector((state) => state.text.currentTextHeader)
-
+  const currentTextId = useSelector((state) => state.text.currentTextId)
+  const selectedText = useSelector((state) => state.text[currentTextId].textHeader)
 
   return (
     <div className={styles.Main}>
