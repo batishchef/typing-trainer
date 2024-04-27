@@ -1,13 +1,50 @@
 @import url(../../../shared/styles/variables.css);
 
 .Main {
-  width: calc(var(--ui-step) * 60);
+  width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 4fr 4fr 2fr;
+  grid-template-rows: 1fr 4fr 2fr;
+  gap: 20px;
+  grid-template-areas: 
+    "nav header header stat"
+    "nav textField textField stat"
+    "nav footer footer footer";
 }
 
 .header {
   color: rgb(58, 58, 58);
+}
+
+
+.nav {
+  grid-area: nav;
+  padding-top: 300px;
+  text-align: center;
+  border-radius: calc(var(--ui-step) * 2);
+  background-color: rgba(222, 222, 76, 0.731);
+}
+.textHeader {
+  grid-area: header;
+  border-radius: calc(var(--ui-step) * 2);
+  background-color: rgba(76, 222, 147, 0.731);
+}
+.stat {
+  grid-area: stat;
+  border-radius: calc(var(--ui-step) * 2);
+  background-color: rgba(186, 76, 222, 0.731);
+}
+.textField {
+  grid-area: textField;
+  padding: 100px 0;
+  border-radius: calc(var(--ui-step) * 2);
+  /* background-color: rgba(222, 76, 76, 0.731); */
+  grid-column: span 2;
+}
+.footer {
+  grid-area: footer;
+  border-radius: calc(var(--ui-step) * 2);
+  background-color: rgba(76, 210, 222, 0);
 }

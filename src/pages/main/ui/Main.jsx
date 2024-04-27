@@ -11,11 +11,15 @@ const Main = () => {
 
   return (
     <div className={styles.Main}>
+      <div className={styles.nav}>в разработке</div>
+      <div className={styles.textHeader}><h1 className={styles.header}>{selectedText}</h1></div>
+      <div className={styles.stat}><StatGauge /></div>
+      <div className={styles.textField}><TypingField /></div>
+      {/* <div className={styles.footer}><TextSelector /></div>       */}
       
-      <TextSelector />
-      <h1 className={styles.header}>{selectedText}</h1>
-      <StatGauge />
-      <TypingField />
+      
+      
+      
     </div>
   );
 };
